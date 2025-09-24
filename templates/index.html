@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-utensils me-2"></i>Restaurant Menu Post Generator</h4>
+            </div>
+            <div class="card-body">
+                <p class="text-muted mb-4">Transform your restaurant menu into engaging Instagram-style social media posts! Simply paste your menu below and choose how many posts you'd like to generate.</p>
+                
+                <form method="POST" action="{{ url_for('generate_posts') }}" id="menuForm">
+                    <div class="mb-3">
+                        <label for="menu_text" class="form-label">
+                            <i class="fas fa-clipboard-list me-1"></i>Restaurant Menu
+                        </label>
+                        <textarea 
+                            class="form-control" 
+                            id="menu_text" 
+                            name="menu_text" 
+                            rows="8" 
+                            placeholder="Paste your restaurant menu here... Include dishes, prices, descriptions, specials, etc."
+                            required
+                        ></textarea>
+                        <div class="form-text">Include dish names, descriptions, prices, and any special information about your menu items.</div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="num_posts" class="form-label">
+                                <i class="fas fa-hashtag me-1"></i>Number of Posts
+                            </label>
+                            <select class="form-select" id="num_posts" name="num_posts">
+                                <option value="1">1 Post</option>
+                                <option value="2">2 Posts</option>
+                                <option value="3" selected>3 Posts</option>
+                                <option value="4">4 Posts</option>
+                                <option value="5">5 Posts</option>
+                                <option value="6">6 Posts</option>
+                                <option value="7">7 Posts</option>
+                                <option value="8">8 Posts</option>
+                                <option value="9">9 Posts</option>
+                                <option value="10">10 Posts</option>
+                            </select>
+                            <div class="form-text">Choose how many unique social media posts to generate (1-10).</div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="language" class="form-label">
+                                <i class="fas fa-globe me-1"></i>Language Options
+                            </label>
+                            <select class="form-select" id="language" name="language">
+                                <option value="english" selected>English Only</option>
+                                <option value="german">German Only</option>
+                                <option value="both">English + German Translation</option>
+                            </select>
+                            <div class="form-text">Choose language for generated posts.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="ab_test_mode" name="ab_test_mode">
+                            <label class="form-check-label" for="ab_test_mode">
+                                <i class="fas fa-chart-line me-1"></i>A/B Test Mode
+                            </label>
+                            <div class="form-text">Generate post variants for A/B testing with click tracking.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg" id="generateBtn">
+                            <i class="fas fa-magic me-2"></i>Generate Posts
+                            <span class="spinner-border spinner-border-sm ms-2 d-none" id="loadingSpinner"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="mt-4 text-center">
+            <small class="text-muted">
+                <i class="fas fa-info-circle me-1"></i>
+                Generated posts will include engaging captions, relevant hashtags, and AI-generated food images perfect for Instagram and other social media platforms.
+            </small>
+        </div>
+        
+        <div class="mt-3">
+            <div class="alert alert-light border">
+                <div class="row">
+                    <div class="col-md-8">
+                        <small class="text-muted">
+                            <strong>GDPR Notice:</strong> This application processes your menu data using OpenAI's API to generate social media content and images. Your data is used solely for content generation and is not stored permanently. By using this service, you consent to this processing.
+                        </small>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <small class="text-muted">
+                            <i class="fas fa-shield-alt me-1"></i>Data protected
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('menuForm').addEventListener('submit', function() {
+    const btn = document.getElementById('generateBtn');
+    const spinner = document.getElementById('loadingSpinner');
+    
+    btn.disabled = true;
+    spinner.classList.remove('d-none');
+    btn.innerHTML = '<i class="fas fa-magic me-2"></i>Generating Posts... <span class="spinner-border spinner-border-sm ms-2"></span>';
+});
+</script>
+{% endblock %}
