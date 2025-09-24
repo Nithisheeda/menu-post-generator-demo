@@ -25,7 +25,7 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     raise ValueError("OPENAI_API_KEY environment variable is required")
-openai_client = OpenAI(api_key=OPENAI_API_KEY)
+import os; print(os.environ)
 
 @app.route('/')
 def index():
