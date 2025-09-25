@@ -142,6 +142,7 @@ def export_posts():
         
         # Write data
         for i, post in enumerate(posts):
+            print("Generating post", i)
             writer.writerow([
                 i + 1,
                 post.get('caption', ''),
